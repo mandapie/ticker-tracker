@@ -45,12 +45,12 @@ app.use(require("./routes/index"));
 
 /** homepage **/
 app.get("/", function(req, res) {
-    res.render("index");
+    res.render("index", {page: "index"});
 });
 
 /** show all items **/
 app.get("/items", function(req, res) {
-    res.render("items/index");
+    res.render("items/index", {page: "items"});
 });
 
 /** add a new item **/

@@ -1,4 +1,6 @@
-.signin-form {
+.main {
     margin: 4em auto auto;
+}
+.signin-form {
     max-width: 300px;
 }
