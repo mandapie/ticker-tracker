@@ -41,22 +41,9 @@ app.use(function(req, res, next) {
     next();
 });
 
+/* use routes */
 app.use(require("./routes/index"));
-
-/** homepage **/
-app.get("/", function(req, res) {
-    res.render("index", {page: "index"});
-});
-
-/** show all items **/
-app.get("/items", function(req, res) {
-    res.render("items/index", {page: "items"});
-});
-
-/** add a new item **/
-// app.get("items/new", function(req, res) {
-    
-// });
+app.use(require("./routes/items"));
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("starting ticker...");
