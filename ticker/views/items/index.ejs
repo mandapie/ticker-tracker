@@ -1,10 +1,35 @@
 <% include ../partials/header %>
 
 <div class="main ui text container">
-    <form action="/items/new" method="POST">
-        <input type="text" name="name" placeholder="item name">
-        <button type="submit">Add</button>
-    </form>
+    <div class="new-item">
+        <h1>Add new Item</h1>
+        <form class=" ui form" action="/items/new" method="POST">
+            <div class="field">
+                <input type="text" name="name" placeholder="item name">
+            </div>
+            <div class="field">
+                <input type="number" name="total" placeholder="total amount">
+            </div>
+            <button class="ui submit button">Add</button>
+        </form>
+    </div>
+</div>
+<div class="ui container">
+    <h1>Items That You Keep Track On</h1>
+    <div class="ui cards">
+        <% user.items.forEach(function(item) { %>
+            <div class="card">
+                <div class="content">
+                    <div class="header"><%= item.name %></div>
+                    <div class="meta">Created by <%= item.creator %></div>
+                    <div class="description">
+                        <p>used: <%= item.amount %></p>
+                        <p>left: <%= item.total %></p>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
 </div>
 
 <% include ../partials/footer %>
