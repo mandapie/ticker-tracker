@@ -6,7 +6,7 @@ var router = express.Router();
 
 /** show all items of user **/
 router.get("/items", mw.isLoggedIn, function(req, res) {
-    res.render("items/index", {page: "items"});
+    res.render("./items/index", {page: "items"});
 });
 
 /** add a new item **/

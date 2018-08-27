@@ -1,6 +1,7 @@
 .main {
-    margin: 4em auto auto;
+    margin-top: 60px;
 }
 .signin-form {
+    margin: 10% auto;
     max-width: 300px;
 }

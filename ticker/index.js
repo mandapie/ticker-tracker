@@ -9,8 +9,7 @@ session = require("express-session"),
 flash = require("connect-flash");
 
 /* models */
-var User = require("./models/user"),
-Item = require("./models/item");
+var User = require("./models/user");
 
 /* app setup */
 var app = express();
@@ -44,6 +43,7 @@ app.use(function(req, res, next) {
 /* use routes */
 app.use(require("./routes/index"));
 app.use(require("./routes/items"));
+app.use(require("./routes/users"));
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("starting ticker...");

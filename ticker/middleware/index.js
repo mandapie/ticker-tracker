@@ -7,7 +7,7 @@ mw.isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    req.flash("error", "Please Login first");
+    req.flash("failure", "Please Login first");
     res.redirect("/login");
 };
 
@@ -17,10 +17,10 @@ mw.isItemOwner = function (req, res, next) {
         Item.findById(req.params.id, function(err, itemId) {
             if (err || !itemId) {
                 if(!itemId) {
-                    req.flash("error", "Campground not found");
+                    req.flash("failure", "Campground not found");
                 }
                 else {
-                    req.flash("error", "Something went wrong");
+                    req.flash("failure", "Something went wrong");
                 }
                 console.log(err);
                 res.redirect("back");
@@ -30,14 +30,14 @@ mw.isItemOwner = function (req, res, next) {
                     next();
                 }
                 else {
-                    req.flash("error", "You don't have permission");
+                    req.flash("failure", "You don't have permission");
                     res.redirect("back");
                 }
             }
         });
     }
     else {
-        req.flash("error", "Please Login first");
+        req.flash("failure", "Please Login first");
         res.redirect("back");
     }
 };
@@ -48,10 +48,10 @@ mw.isItemOwner = function (req, res, next) {
 //         Comment.findById(req.params.comment_id, function(err, commentId) {
 //             if (err) {
 //                 if(!commentId) {
-//                     req.flash("error", "Comment not found");
+//                     req.flash("failure", "Comment not found");
 //                 }
 //                 else {
-//                     req.flash("error", "Something went wrong");
+//                     req.flash("failure", "Something went wrong");
 //                 }
 //                 console.log(err);
 //                 res.redirect("back");
@@ -61,14 +61,14 @@ mw.isItemOwner = function (req, res, next) {
 //                     return next();
 //                 }
 //                 else {
-//                     req.flash("error", "You don't have permission");
+//                     req.flash("failure", "You don't have permission");
 //                     res.redirect("back");
 //                 }
 //             }
 //         });
 //     }
 //     else {
-//         req.flash("error", "Please Login first");
+//         req.flash("failure", "Please Login first");
 //         res.redirect("back");
 //     }
 // };
