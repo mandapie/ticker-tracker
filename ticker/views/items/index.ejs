@@ -8,17 +8,17 @@
                 <input type="text" name="name" placeholder="item name">
             </div>
             <div class="field">
-                <input type="number" name="total" placeholder="total amount">
+                <input type="number" name="total" placeholder="total amount" min="1">
             </div>
             <button class="ui submit button">Add</button>
         </form>
     </div>
 </div>
 <div class="ui container">
-    <h1>Items That You Keep Track On</h1>
+    <h1>Your Inventory</h1>
     <div class="ui cards">
         <% user.items.forEach(function(item) { %>
-            <div class="card">
+            <a href="/items/<%= item._id %>" class="card">
                 <div class="content">
                     <div class="header"><%= item.name %></div>
                     <div class="meta">Created by <%= item.creator %></div>
@@ -27,7 +27,7 @@
                         <p>left: <%= item.total %></p>
                     </div>
                 </div>
-            </div>
+            </a>
         <% }); %>
     </div>
 </div>

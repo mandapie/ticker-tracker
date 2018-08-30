@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+
+<div class="main ui container">
+    <div class="ui centered grid">
+        <h1><%= item.name %></h1>
+    </div>
+    <div class="ui centered grid">
+        <h2>Amount left: <%= item.total %></h2>
+    </div>
+    <div>
+        <h1>Participants</h1>
+        <div class="ui cards">
+            <% item.users.forEach(function(user) { %>
+                <div class="card">
+                    <div class="content">
+                        <div class="header"><%= user.username %></div>
+                        <div class="description">
+                            <p>used: <%= user.amount %></p>
+                            <% if (currentUser._id.equals(user._id)) { %>
+                            <form action="/items/<%= item._id %>?_method=PUT" method="POST">
+                                <input type="number" name="amount" placeholder="amount" min="0">
+                                <button type="submit">Enter</button>
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

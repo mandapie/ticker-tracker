@@ -17,7 +17,7 @@ mw.isItemOwner = function (req, res, next) {
         Item.findById(req.params.id, function(err, itemId) {
             if (err || !itemId) {
                 if(!itemId) {
-                    req.flash("failure", "Campground not found");
+                    req.flash("failure", "Item not found");
                 }
                 else {
                     req.flash("failure", "Something went wrong");
@@ -37,7 +37,7 @@ mw.isItemOwner = function (req, res, next) {
         });
     }
     else {
-        req.flash("failure", "Please Login first");
+        req.flash("failure", "Please log in first");
         res.redirect("back");
     }
 };
