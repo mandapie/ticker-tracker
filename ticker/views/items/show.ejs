@@ -7,6 +7,15 @@
     <div class="ui centered grid">
         <h2>Amount left: <%= item.total %></h2>
     </div>
+    <div class="ui centered grid">
+        <button onclick="showAddAmountForm()">Add Amount</button>
+    </div>
+    <div id="addAmount" style="display:none;" class="ui centered grid">
+        <form action="/items/<%= item._id %>/add?_method=PUT" method="POST">
+            <input type="number" name="total" placeholder="amount" min="1">
+            <button type="submit">Add</button>
+        </form>
+    </div>
     <div>
         <h1>Participants</h1>
         <div class="ui cards">
