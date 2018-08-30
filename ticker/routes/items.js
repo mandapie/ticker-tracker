@@ -20,7 +20,7 @@ router.get("/items", mw.isLoggedIn, function(req, res) {
 });
 
 /** add a new item **/
-router.post("/items/new", function(req, res) {
+router.post("/items/new", mw.isLoggedIn, function(req, res) {
     Item.create({
         name: req.body.name,
         total: req.body.total,
@@ -65,7 +65,7 @@ router.get("/items/:id", mw.isLoggedIn, function(req, res) {
             else {
                 req.flash("failure", "Something went wrong");
             }
-            console.log("POST: /items/:id", err);
+            console.log("GET: /items/:id", err);
             res.redirect("back");
         }
         else {
@@ -74,7 +74,8 @@ router.get("/items/:id", mw.isLoggedIn, function(req, res) {
     });
 });
 
-router.put("/items/:id", function(req, res) {
+/** user consumes an item **/
+router.put("/items/:id", mw.isLoggedIn, function(req, res) {
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
             if(!item) {
@@ -83,7 +84,7 @@ router.put("/items/:id", function(req, res) {
             else {
                 req.flash("failure", "Something went wrong");
             }
-            console.log("POST: /items/:id", err);
+            console.log("PUT: /items/:id", err);
             res.redirect("back");
         }
         else {
@@ -92,7 +93,7 @@ router.put("/items/:id", function(req, res) {
                 for (var i=0; i<item.users.length;i++) {
                     if (item.users[i]._id.equals(req.user.id)) {
                         // source: https://stackoverflow.com/questions/8976627/how-to-add-two-strings-as-if-they-were-numbers
-                        item.total = +item.total - +req.body.amount;
+                        item.total = enough;
                         item.users[i].amount = +item.users[i].amount + +req.body.amount;
                     }
                 }
@@ -105,7 +106,7 @@ router.put("/items/:id", function(req, res) {
                         else {
                             req.flash("failure", "Something went wrong");
                         }
-                        console.log("POST: /items/:id", err);
+                        console.log("PUT: /items/:id", err);
                         res.redirect("back");
                     }
                     else {
@@ -113,7 +114,7 @@ router.put("/items/:id", function(req, res) {
                             if (user.items[i]._id.equals(req.params.id)) {
                                 // source: https://stackoverflow.com/questions/8976627/how-to-add-two-strings-as-if-they-were-numbers
                                 user.items[i].amount = +user.items[i].amount + +req.body.amount;
-                                user.items[i].total = +user.items[i].total - +req.body.amount;
+                                user.items[i].total = enough;
                             }
                         }
                         user.save();
@@ -129,7 +130,8 @@ router.put("/items/:id", function(req, res) {
     });
 });
 
-router.put("/items/:id/add", function(req, res) {
+/** creator adds an amount **/
+router.put("/items/:id/add", mw.isItemOwner, function(req, res) {
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
             if(!item) {
@@ -138,34 +140,75 @@ router.put("/items/:id/add", function(req, res) {
             else {
                 req.flash("failure", "Something went wrong");
             }
-            console.log("POST: /items/:id", err);
+            console.log("PUT: /items/:id/add", err);
             res.redirect("back");
         }
         else {
-            item.total = +item.total + +req.body.total;
-            item.save();
-            User.findById(req.user.id, function(err, user) {
-                if (err || !user) {
-                    if(!user) {
-                        req.flash("failure", "User not found");
+            var enough = +item.total + +req.body.total;
+            if (enough >= 0) {
+                item.total = enough;
+                item.save();
+                User.findById(req.user.id, function(err, user) {
+                    if (err || !user) {
+                        if(!user) {
+                            req.flash("failure", "User not found");
+                        }
+                        else {
+                            req.flash("failure", "Something went wrong");
+                        }
+                        console.log("PUT: /items/:id/add", err);
+                        res.redirect("back");
                     }
                     else {
-                        req.flash("failure", "Something went wrong");
-                    }
-                    console.log("POST: /items/:id", err);
-                    res.redirect("back");
-                }
-                else {
-                    for (var i=0; i<user.items.length;i++) {
-                        if (user.items[i]._id.equals(req.params.id)) {
-                            // source: https://stackoverflow.com/questions/8976627/how-to-add-two-strings-as-if-they-were-numbers
-                            user.items[i].total = +user.items[i].total + +req.body.total;
+                        for (var i=0; i<user.items.length;i++) {
+                            if (user.items[i]._id.equals(req.params.id)) {
+                                // source: https://stackoverflow.com/questions/8976627/how-to-add-two-strings-as-if-they-were-numbers
+                                user.items[i].total = +user.items[i].total + +req.body.total;
+                            }
                         }
+                        user.save();
+                        res.redirect("/items/" + req.params.id);
                     }
-                    user.save();
-                    res.redirect("/items/" + req.params.id);
+                });
+            }
+            else {
+                req.flash("failure", "You cannot have negative amount in stock!");
+                res.redirect("back");
+            }
+        }
+    });
+});
+
+/** delete an item **/
+router.delete("/items/:id", mw.isItemOwner, function(req, res) {
+    User.findById(req.user.id, function(err, user) {
+        if (err || !user) {
+            if(!user) {
+                req.flash("failure", "User not found");
+            }
+            else {
+                req.flash("failure", "Something went wrong");
+            }
+            console.log("DELETE: /items/:id", err);
+            res.redirect("back");
+        }
+        else {
+            for (var i=0; i<user.items.length;i++) {
+                if (user.items[i]._id.equals(req.params.id)) {
+                    user.items.splice(i, 1);
                 }
-            });
+            }
+            user.save();
+            Item.findByIdAndRemove(req.params.id, function(err) {
+            if (err) {
+                req.flash("error", "Something went wrong");
+                console.log("DELETE: /items/:id", err);
+                res.redirect("back");
+            }
+            else {
+                res.redirect("/items");
+            }
+        });
         }
     });
 });

@@ -9,3 +9,9 @@ function showAddAmountForm() {
         x.style.display = "none";
     }
 }
+
+function areYouSureDialog() {
+    document.getElementById('areYouSure').style.display = "block";
+}
+
+document.getElementById('cancelButton').onclick = document.getElementById('areYouSure').style.display = "none";
