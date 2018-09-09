@@ -1,12 +1,12 @@
 {
-  "name": "ticker-tracker",
+  "name": "soylent-counter",
   "version": "1.0.0",
-  "description": "An app to keep track of items.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Amanda, Daniel",
+  "author": "Amanda",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
