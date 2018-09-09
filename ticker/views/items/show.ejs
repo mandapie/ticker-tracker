@@ -2,48 +2,41 @@
 
 <div class="main ui container">
     <div class="ui centered grid">
-        <div class="row"><h1><%= item.name %></h1></div>
-        <div class="row"><h2>Amount left: <%= item.total %></h2></div>
-        <div class="row>"><h3>Admin: <%= item.creator %></h3></div>
+        <h1><%= item.name %></h1>
     </div>
-
+    <div class="ui centered grid">
+        <h2>Amount left: <%= item.total %></h2>
+    </div>
+    <div class="ui centered grid">
+        <h3>Admin: <%= item.creator %></h3>
+    </div>
     <% if (currentUser.username === item.creator) { %>
         <div class="ui centered grid">
             <button onclick="showAddAmountForm()">Add Amount</button>
-            <a href="/items/<%= item._id %>/edit"><button>Edit</button></a>
-            <button onclick="areYouSureDialog()">Delete</button>
-            <button onclick="showInviteForm()">Invite</button>
+        </div>
+        <div id="addAmount" style="display:none;" class="ui centered grid">
+            <form action="/items/<%= item._id %>/add?_method=PUT" method="POST">
+                <input type="number" name="total" placeholder="amount">
+                <button type="submit">Add</button>
+            </form>
         </div>
         <div class="ui centered grid">
-            <div id="addAmount" style="display:none;">
-                <form action="/items/<%= item._id %>/add?_method=PUT" method="POST">
-                    <input type="number" name="total" placeholder="amount">
-                    <button type="submit">Add</button>
+            <button onclick="areYouSureDialog()">Delete</button>
+        </div>
+        <div id="areYouSure" class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">Delete</div>
+            <div class="content">
+                <div class="description">Are you sure you want to DELETE this item?</div>
+            </div>
+            <div class="actions">
+                <button class="ui button" id="cancelButton">Cancel</button>
+                <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
+                    <button class="ui button">OK</button>
                 </form>
             </div>
-            <div id="areYouSure" class="ui modal">
-                <i class="close icon"></i>
-                <div class="header">Delete</div>
-                <div class="content">
-                    <div class="description">Are you sure you want to DELETE this item?</div>
-                </div>
-                <div class="actions">
-                    <button class="ui button" id="cancelButton">Cancel</button>
-                    <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
-                        <button class="ui button">OK</button>
-                    </form>
-                </div>
-            </div>
-            <div id="invite" style="display:none;">
-                <div>
-                    <input style="width:355px" type="text" id="itemLink" value="https://ticker_tracker.com/<%= item._id %>" readonly>
-                    <button type="submit" onclick="copyLink()">Copy</button>
-                </div>
-            </div>
         </div>
-        
     <% } %>
-    
     <div>
         <h1>Participants</h1>
         <div class="ui cards">
