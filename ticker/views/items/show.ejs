@@ -3,12 +3,9 @@
   <div class="main ui container">
     <!-- item name -->
     <div class="ui centered grid">
-<<<<<<< HEAD
-<<<<<<< HEAD
         <div class="row"><h1><%= item.name %></h1></div>
         <div class="row"><h2>Amount left: <%= item.total %></h2></div>
         <div class="row>"><h3>Admin: <%= item.creator %></h3></div>
-=======
         <h1><%= item.name %></h1>
     </div>
     <div class="ui centered grid">
@@ -16,7 +13,6 @@
     </div>
     <div class="ui centered grid">
         <h3>Admin: <%= item.creator %></h3>
->>>>>>> parent of 83e2e0d... added edit page. cancel button works now
     </div>
     <% if (currentUser.username === item.creator) { %>
         <div class="ui centered grid">
@@ -45,9 +41,6 @@
             </div>
         </div>
     <% } %>
-<<<<<<< HEAD
-    
-=======
         <button onclick="showAddAmountForm()">Add Amount</button>
     </div>
     <div id="addAmount" style="display:none;" class="ui centered grid">
@@ -56,9 +49,6 @@
             <button type="submit">Add</button>
         </form>
     </div>
->>>>>>> parent of a7ef24b... delete works but can't close modal
-=======
->>>>>>> parent of 83e2e0d... added edit page. cancel button works now
     <div>
         <h1>Participants</h1>
         <div class="ui cards">

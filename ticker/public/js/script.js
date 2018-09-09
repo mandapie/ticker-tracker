@@ -16,6 +16,7 @@ function areYouSureDialog() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 document.getElementById('cancelButton').addEventListener("click", function() {
     document.getElementById('areYouSure').style.display = "none";
 });
@@ -37,6 +38,9 @@ function copyLink() {
 =======
 >>>>>>> parent of a7ef24b... delete works but can't close modal
 }
+=======
+document.getElementById('cancelButton').onclick = document.getElementById('areYouSure').style.display = "none";
+>>>>>>> parent of 83e2e0d... added edit page. cancel button works now
 =======
 document.getElementById('cancelButton').onclick = document.getElementById('areYouSure').style.display = "none";
 >>>>>>> parent of 83e2e0d... added edit page. cancel button works now
