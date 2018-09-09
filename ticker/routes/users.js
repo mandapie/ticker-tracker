@@ -5,7 +5,7 @@ var mw = require("../middleware");
 
 var router = express.Router();
 
-router.get("/users", mw.isLoggedIn, function(req, res) {
+router.get("/users/:id", mw.isLoggedIn, function(req, res) {
     res.render("./users/index");
 });
 
