@@ -11,7 +11,7 @@ mw.isLoggedIn = function (req, res, next) {
     res.redirect("/login");
 };
 
-/** check if user is the creator of the item **/
+/** check if user is the owner of the item **/
 mw.isItemOwner = function (req, res, next) {
     if(req.isAuthenticated()) {
         Item.findById(req.params.id, function(err, itemId) {
@@ -26,7 +26,7 @@ mw.isItemOwner = function (req, res, next) {
                 res.redirect("back");
             }
             else {
-                if(itemId.creator === req.user.username) {
+                if(itemId.owner === req.user.username) {
                     next();
                 }
                 else {

@@ -32,7 +32,7 @@ router.post("/items/new", mw.isLoggedIn, function(req, res) {
         Item.create({
             name: req.body.name,
             total: total,
-            creator: req.user.username
+            owner: req.user.username
         }, function(err, item) {
             if (err || !item) {
                 if(!item) {
@@ -141,7 +141,7 @@ router.put("/items/:id", mw.isLoggedIn, function(req, res) {
     });
 });
 
-/** creator adds an amount **/
+/** owner adds an amount **/
 router.put("/items/:id/add", mw.isItemOwner, function(req, res) {
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
@@ -190,6 +190,7 @@ router.put("/items/:id/add", mw.isItemOwner, function(req, res) {
     });
 });
 
+/** show edit page **/
 router.get("/items/:id/edit", mw.isItemOwner, function(req, res) {
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
@@ -208,7 +209,7 @@ router.get("/items/:id/edit", mw.isItemOwner, function(req, res) {
     });
 });
 
-/** creator edits an item **/
+/** owner edits an item **/
 router.put("/items/:id/edit", mw.isItemOwner, function(req, res) {
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {

@@ -7,7 +7,7 @@ var userSchema = new mongoose.Schema({
     items: [{
         id: { type: mongoose.Schema.Types.ObjectId, ref: "item"},
         name: String,
-        creator: String,
+        owner: String,
         amount: { type: Number, default: 0 },
         total: { type: Number, default: 0 }
     }]

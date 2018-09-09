@@ -4,14 +4,13 @@
     <div class="ui centered grid">
         <div class="row"><h1><%= item.name %></h1></div>
         <div class="row"><h2>Amount left: <%= item.total %></h2></div>
-        <div class="row>"><h3>Admin: <%= item.creator %></h3></div>
+        <div class="row>"><h3>Owner: <%= item.owner %></h3></div>
     </div>
 
-    <% if (currentUser.username === item.creator) { %>
+    <% if (currentUser.username === item.owner) { %>
         <div class="ui centered grid">
             <button onclick="showAddAmountForm()">Add Amount</button>
             <a href="/items/<%= item._id %>/edit"><button>Edit</button></a>
-            <button onclick="areYouSureDialog()">Delete</button>
             <button onclick="showInviteForm()">Invite</button>
         </div>
         <div class="ui centered grid">
@@ -20,19 +19,6 @@
                     <input type="number" name="total" placeholder="amount">
                     <button type="submit">Add</button>
                 </form>
-            </div>
-            <div id="areYouSure" class="ui modal">
-                <i class="close icon"></i>
-                <div class="header">Delete</div>
-                <div class="content">
-                    <div class="description">Are you sure you want to DELETE this item?</div>
-                </div>
-                <div class="actions">
-                    <button class="ui button" id="cancelButton">Cancel</button>
-                    <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
-                        <button class="ui button">OK</button>
-                    </form>
-                </div>
             </div>
             <div id="invite" style="display:none;">
                 <div>
