@@ -26,7 +26,7 @@
                         <a class="item" <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> href="/login">Login</a>
                         <a class="item" <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> href="/register">Sign up</a>
                     <% } else { %>
-                        <a class="item" href="/users/<%= currentUser._id %>">Welcome back, <%= currentUser.username %>!</a>
+                        <a class="item" href="/profile/<%= currentUser._id %>">Welcome back, <%= currentUser.username %>!</a>
                         <a class="item" href="/logout">Logout</a>
                     <% } %>
                 </div>
