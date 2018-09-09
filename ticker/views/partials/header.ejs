@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-        <title>Ticker Tracker</title>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/style.css">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    </head>
-    <body>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Ticker Tracker - Home</title>
+  <!-- css -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+  <div class="container--main">
+    <header>
+      <!-- nav -->
+      <nav>
         <div class="ui large top fixed inverted menu">
             <div class="ui container">
                 <div class="ui inverted secondary pointing menu">
@@ -26,16 +31,30 @@
                     <% } %>
                 </div>
             </div>
+            <!-- login -->
+            <div class="ui right inverted secondary pointing menu">
+              <% if (!currentUser) { %>
+                <a class="item" <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> href="/login">Login</a>
+                <a class="item" <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> href="/register">Sign up</a>
+              <% } else { %>
+                <a class="item" href="/profile/<%= currentUser._id %>">Welcome back, <%= currentUser.username %>!</a>
+                <a class="item" href="/logout">Logout</a>
+              <% } %>
+            </div>
+          </div>
         </div>
-        
-        <div class="main ui container">
-            <% if(failure && failure.length > 0) { %>
-                <div class="ui negative message">
-                    <%= failure %>
-                </div>
-            <% } else if (success && success.length > 0) { %>
-                <div class="ui success messages">
-                    <%= success %>
-                </div>
-            <% } %>
-        </div>
+      </nav>
+    </header>
+    <main>
+      <!-- login check -->
+      <div class="main ui container">
+        <% if(failure && failure.length > 0) { %>
+          <div class="ui negative message">
+            <%= failure %>
+          </div>
+        <% } else if (success && success.length > 0) { %>
+        <div class="ui success messages">
+          <%= success %>
+          </div>
+        <% } %>
+      </div>

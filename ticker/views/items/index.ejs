@@ -1,35 +1,42 @@
 <% include ../partials/header %>
 
-<div class="main ui text container">
+  <div class="main ui text container">
+    <!-- add item form -->
     <div class="new-item">
-        <h1>Add new Item</h1>
-        <form class=" ui form" action="/items/new" method="POST">
-            <div class="field">
-                <input type="text" name="name" placeholder="item name">
-            </div>
-            <div class="field">
-                <input type="number" name="total" placeholder="total amount" min="1">
-            </div>
-            <button class="ui submit button">Add</button>
-        </form>
+      <h1>Add new Item</h1>
+      <form class="ui form" action="/items/new" method="POST">
+          <div class="field">
+              <input type="text" name="name" placeholder="item name">
+          </div>
+          <div class="field">
+              <input type="number" name="total" placeholder="total amount" min="1">
+          </div>
+          <button class="ui submit button">Add</button>
+      </form>
     </div>
-</div>
-<div class="ui container">
+  </div>
+
+  <div class="ui container">
     <h1>Your Inventory</h1>
+    <!-- item card -->
     <div class="ui cards">
-        <% user.items.forEach(function(item) { %>
-            <a href="/items/<%= item._id %>" class="card">
-                <div class="content">
-                    <div class="header"><%= item.name %></div>
-                    <div class="meta">Created by <%= item.creator %></div>
-                    <div class="description">
-                        <p>used: <%= item.amount %></p>
-                        <p>left: <%= item.total %></p>
-                    </div>
-                </div>
-            </a>
-        <% }); %>
+      <% user.items.forEach(function(item) { %>
+        <a href="/items/<%= item._id %>" class="card">
+          <div class="content">
+            <div class="header">
+              <%= item.name %>
+            </div>
+            <div class="meta">
+              Created by <%= item.creator %>
+            </div>
+            <div class="description">
+              <p>used: <%= item.amount %></p>
+              <p>left: <%= item.total %></p>
+            </div>
+          </div>
+        </a>
+      <% }); %>
     </div>
-</div>
+  </div>
 
 <% include ../partials/footer %>

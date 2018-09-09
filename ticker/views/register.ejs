@@ -1,20 +1,17 @@
 <% include ./partials/header %>
 
-      <div class="signin-form">
-          <h1>Sign up</h1>
-          <form class="ui form" action="/register" method="POST">
-              <div class="field">
-                <input name="username" type="text" placeholder="username" required>
-              </div>
-              <div class="field">
-                <input name="password" type="password" placeholder="password" required>
-              </div>
-              <button class="ui submit button">Sign up</button>
-          </form>
-           <p>&copy; <span class="year"></span> Ticker Tracker</p>
-      </div>
+  <!-- register form -->
+  <div class="signin-form">
+    <h1>Sign up</h1>
+    <form class="ui form" action="/register" method="POST">
+        <div class="field">
+          <input name="username" type="text" placeholder="username" required>
+        </div>
+        <div class="field">
+          <input name="password" type="password" placeholder="password" required>
+        </div>
+        <button class="ui submit button">Sign up</button>
+    </form>
+  </div>
 
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
-      <script  type="text/javascript" src="/js/script.js"></script>
-    </body>
-</html>
+<% include ./partials/footer %>
