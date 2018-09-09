@@ -8,6 +8,7 @@ function showAddAmountForm() {
     } else {
         x.style.display = "none";
     }
+<<<<<<< HEAD
 }
 
 function areYouSureDialog() {
@@ -32,4 +33,6 @@ function copyLink() {
     var copyText = document.getElementById("itemLink");
     copyText.select();
     document.execCommand("copy");
+=======
+>>>>>>> parent of a7ef24b... delete works but can't close modal
 }

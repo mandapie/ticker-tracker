@@ -26,7 +26,7 @@ mw.isItemOwner = function (req, res, next) {
                 res.redirect("back");
             }
             else {
-                if(itemId.creator === req.user.username) {
+                if(itemId.author.id.equals(req.user._id)) {
                     next();
                 }
                 else {

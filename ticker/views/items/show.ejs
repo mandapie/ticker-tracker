@@ -3,6 +3,7 @@
   <div class="main ui container">
     <!-- item name -->
     <div class="ui centered grid">
+<<<<<<< HEAD
         <div class="row"><h1><%= item.name %></h1></div>
         <div class="row"><h2>Amount left: <%= item.total %></h2></div>
         <div class="row>"><h3>Admin: <%= item.creator %></h3></div>
@@ -45,6 +46,16 @@
         
     <% } %>
     
+=======
+        <button onclick="showAddAmountForm()">Add Amount</button>
+    </div>
+    <div id="addAmount" style="display:none;" class="ui centered grid">
+        <form action="/items/<%= item._id %>/add?_method=PUT" method="POST">
+            <input type="number" name="total" placeholder="amount" min="1">
+            <button type="submit">Add</button>
+        </form>
+    </div>
+>>>>>>> parent of a7ef24b... delete works but can't close modal
     <div>
         <h1>Participants</h1>
         <div class="ui cards">
@@ -55,10 +66,10 @@
                         <div class="description">
                             <p>used: <%= user.amount %></p>
                             <% if (currentUser._id.equals(user._id)) { %>
-                                <form action="/items/<%= item._id %>?_method=PUT" method="POST">
-                                    <input type="number" name="amount" placeholder="amount" min="0">
-                                    <button type="submit">Enter</button>
-                                </form>
+                            <form action="/items/<%= item._id %>?_method=PUT" method="POST">
+                                <input type="number" name="amount" placeholder="amount" min="0">
+                                <button type="submit">Enter</button>
+                            </form>
                             <% } %>
                         </div>
                     </div>
