@@ -1,5 +1,5 @@
-var d = new Date();
-document.querySelector(".year").innerHTML = d.getFullYear();
+let currentYear = new Date();
+document.querySelector(".copy__year").textContent = currentYear.getFullYear();
 
 function showAddAmountForm() {
     var x = document.getElementById("addAmount");

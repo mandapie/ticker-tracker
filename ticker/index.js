@@ -45,6 +45,6 @@ app.use(require("./routes/index"));
 app.use(require("./routes/items"));
 //app.use(require("./routes/users"));
 
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("starting ticker...");
+app.listen(process.env.PORT || 3000, process.env.IP, function() {
+    console.log("Listening on port 3000");
 });
