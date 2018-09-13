@@ -7,7 +7,7 @@
             <input type="text" name="name" placeholder="item name" value="<%= item.name %>" required>
         </div>
         <div class="field">
-            <input type="number" name="total" placeholder="total amount" value="<%= item.total.toString() %>" required>
+            <input type="number" name="total" placeholder="total amount" value="<%= item.total.toString() %>" min="0" required>
         </div>
         <button class="ui submit button">Edit</button>
     </form>
