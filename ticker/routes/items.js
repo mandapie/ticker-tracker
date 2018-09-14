@@ -161,7 +161,7 @@ router.put("/items/:id", mw.isParticipant, function(req, res) {
             var enough = +item.total - +req.body.amount;
             if(+item.total >= 0 && enough >= 0) {
                 for (var i=0; i<item.users.length;i++) {
-                    if (item.users[i]._id.equals(req.user.id)) {
+                    if (item.users[i]._id == req.user.id) {
                         // source: https://stackoverflow.com/questions/8976627/how-to-add-two-strings-as-if-they-were-numbers
                         item.users[i].amount = +item.users[i].amount + +req.body.amount;
                     }
@@ -327,7 +327,7 @@ router.put("/items/:id/edit", mw.isItemOwner, function(req, res) {
                     }
                     else {
                         for (var i=0; i<user.items.length;i++) {
-                            if (user.items[i]._id.equals(req.params.id)) {
+                            if (user.items[i]._id == req.params.id) {
                                 // source: https://stackoverflow.com/questions/8976627/how-to-add-two-strings-as-if-they-were-numbers
                                 user.items[i].name = req.body.name;
                                 user.items[i].total = req.body.total;
@@ -338,6 +338,53 @@ router.put("/items/:id/edit", mw.isItemOwner, function(req, res) {
                 });
             }
             res.redirect("/items/" + req.params.id);
+        }
+    });
+});
+
+/** owner removes a participant **/
+router.post("/items/:id/remove/:user", mw.isItemOwner, function(req, res) {
+    // remove participant from Item colleciton
+    Item.findById(req.params.id, function(err, item) {
+        if (err || !item) {
+            if(!item) {
+                req.flash("failure", "Item not found");
+            }
+            else {
+                req.flash("failure", "Something went wrong");
+            }
+            console.log("PUT: /items/:id/edit", err);
+            res.redirect("back");
+        }
+        else {
+            for (var i=0; i<item.users.length;i++) {
+                if (item.users[i]._id == req.params.user) {
+                    item.users.splice(i, 1);
+                }
+            }
+            item.save();
+            // remove Item from User
+            User.findById(req.params.user, function(err, user) {
+                if (err || !user) {
+                    if(!user) {
+                        req.flash("failure", "User not found");
+                    }
+                    else {
+                        req.flash("failure", "Something went wrong");
+                    }
+                    console.log("PUT: /items/:id/edit", err);
+                    res.redirect("back");
+                }
+                else {
+                    for (var i=0; i<user.items.length;i++) {
+                        if (user.items[i]._id == req.params.id) {
+                            user.items.splice(i, 1);
+                        }
+                    }
+                    user.save();
+                    res.redirect("/items/" + req.params.id);
+                }
+            });
         }
     });
 });

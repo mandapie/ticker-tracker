@@ -36,7 +36,14 @@
             <% item.users.forEach(function(user) { %>
                 <div class="card">
                     <div class="content">
-                        <div class="header"><%= user.username %></div>
+                        <div class="header">
+                            <%= user.username %>
+                            <% if (currentUser.username == item.owner) { %>
+                            <form action="/items/<%= item._id %>/remove/<%= user._id %>" method="POST">
+                                    <button>Remove</button>
+                                </form>
+                            <% } %>
+                        </div>
                         <div class="description">
                             <p>used: <%= user.amount %></p>
                             <% if (currentUser._id.equals(user._id)) { %>
