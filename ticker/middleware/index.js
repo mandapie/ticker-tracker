@@ -7,7 +7,7 @@ mw.isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    req.flash("failure", "Please Login first");
+    req.flash("failure", "Please log in first");
     res.redirect("/login");
 };
 
@@ -42,35 +42,38 @@ mw.isItemOwner = function (req, res, next) {
     }
 };
 
-// /** check if comment is by current user */
-// mw.isCommenter = function (req, res, next) {
-//     if (req.isAuthenticated()) {
-//         Comment.findById(req.params.comment_id, function(err, commentId) {
-//             if (err) {
-//                 if(!commentId) {
-//                     req.flash("failure", "Comment not found");
-//                 }
-//                 else {
-//                     req.flash("failure", "Something went wrong");
-//                 }
-//                 console.log(err);
-//                 res.redirect("back");
-//             }
-//             else {
-//                 if(commentId.author.id.equals(req.user._id)) {
-//                     return next();
-//                 }
-//                 else {
-//                     req.flash("failure", "You don't have permission");
-//                     res.redirect("back");
-//                 }
-//             }
-//         });
-//     }
-//     else {
-//         req.flash("failure", "Please Login first");
-//         res.redirect("back");
-//     }
-// };
+/** check if user is a participant **/
+mw.isParticipant = function (req, res, next) {
+    if(req.isAuthenticated()) {
+        Item.findById(req.params.id, function(err, itemId) {
+            if (err || !itemId) {
+                if(!itemId) {
+                    req.flash("failure", "Item not found");
+                }
+                else {
+                    req.flash("failure", "Something went wrong");
+                }
+                console.log(err);
+                res.redirect("back");
+            }
+            else {
+                for (var i=0; i<itemId.users.length;i++) {
+                    if (itemId.users[i]._id == req.user.id) {
+                        next();
+                    }
+                    else {
+                        req.flash("failure", "You don't have permission");
+                        res.redirect("back");
+                        break;
+                    }
+                }
+            }
+        });
+    }
+    else {
+        req.flash("failure", "Please log in first");
+        res.redirect("back");
+    }
+};
 
 module.exports = mw;

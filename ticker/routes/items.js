@@ -125,7 +125,7 @@ router.post("/items/join", mw.isLoggedIn, function(req, res) {
 });
 
 /** show full detail of an item **/
-router.get("/items/:id", mw.isLoggedIn, function(req, res) {
+router.get("/items/:id", mw.isParticipant, function(req, res) {
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
             if(!item) {
@@ -144,7 +144,7 @@ router.get("/items/:id", mw.isLoggedIn, function(req, res) {
 });
 
 /** user consumes an item **/
-router.put("/items/:id", mw.isLoggedIn, function(req, res) {
+router.put("/items/:id", mw.isParticipant, function(req, res) {
     // update total and amount Item collection
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
@@ -223,7 +223,7 @@ router.put("/items/:id", mw.isLoggedIn, function(req, res) {
     });
 });
 
-/** owner adds an amount **/
+/** owner adds amount to total **/
 router.put("/items/:id/add", mw.isItemOwner, function(req, res) {
     // update total in Item collection
     Item.findById(req.params.id, function(err, item) {
@@ -345,7 +345,6 @@ router.put("/items/:id/edit", mw.isItemOwner, function(req, res) {
 /** owner deletes an item **/
 router.delete("/items/:id", mw.isItemOwner, function(req, res) {
     // find item to find all users
-    var error = false;
     Item.findById(req.params.id, function(err, item) {
         if (err || !item) {
             if(!item) {
