@@ -244,7 +244,7 @@ router.put("/items/:id/add", mw.isItemOwner, function(req, res) {
                 item.save();
                 // update total for all participants
                 for (var i=0; i<item.users.length;i++) {
-                        User.findById(req.user.id, function(err, user) {
+                        User.findById(item.users[i]._id, function(err, user) {
                         if (err || !user) {
                             if(!user) {
                                 req.flash("failure", "User not found");
@@ -257,7 +257,7 @@ router.put("/items/:id/add", mw.isItemOwner, function(req, res) {
                         }
                         else {
                             for (var i=0; i<user.items.length;i++) {
-                                if (user.items[i]._id.equals(req.params.id)) {
+                                if (user.items[i]._id == req.params.id) {
                                     user.items[i].total = enough;
                                 }
                             }
@@ -314,7 +314,7 @@ router.put("/items/:id/edit", mw.isItemOwner, function(req, res) {
             item.save();
             // update total and name for all participants
             for (var i=0; i<item.users.length;i++) {
-                User.findById(req.user.id, function(err, user) {
+                User.findById(item.users[i]._id, function(err, user) {
                     if (err || !user) {
                         if(!user) {
                             req.flash("failure", "User not found");
@@ -373,7 +373,7 @@ router.delete("/items/:id", mw.isItemOwner, function(req, res) {
                     }
                     else {
                         for (var i=0; i<user.items.length;i++) {
-                            if (user.items[i]._id.equals(req.params.id)) {
+                            if (user.items[i]._id == req.params.id) {
                                 user.items.splice(i, 1);
                             }
                         }
