@@ -44,6 +44,7 @@ mw.isItemOwner = function (req, res, next) {
 
 /** check if user is a participant **/
 mw.isParticipant = function (req, res, next) {
+    var isParticipant = false;
     if(req.isAuthenticated()) {
         Item.findById(req.params.id, function(err, itemId) {
             if (err || !itemId) {
@@ -59,13 +60,16 @@ mw.isParticipant = function (req, res, next) {
             else {
                 for (var i=0; i<itemId.users.length;i++) {
                     if (itemId.users[i]._id == req.user.id) {
-                        next();
-                    }
-                    else {
-                        req.flash("failure", "You don't have permission");
-                        res.redirect("back");
+                        isParticipant = true;
                         break;
                     }
+                }
+                if (isParticipant) {
+                    next();
+                }
+                else {
+                    req.flash("failure", "You don't have permission");
+                    res.redirect("back");
                 }
             }
         });
