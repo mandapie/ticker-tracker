@@ -34,10 +34,10 @@ function copyLink() {
     document.execCommand("copy");
 }
 
-function areYouSureRemoveDialog() {
-    document.getElementById('areYouSureRemove').style.display = "block";
-}
+// function areYouSureRemoveDialog() {
+//     document.getElementById('areYouSureRemove').style.display = "block";
+// }
 
-function closeRemoveDialog() {
-    document.getElementById('areYouSureRemove').style.display = "none";
-}
+// function closeRemoveDialog() {
+//     document.getElementById('areYouSureRemove').style.display = "none";
+// }
