@@ -10,13 +10,13 @@ function showAddAmountForm() {
     }
 }
 
-function areYouSureDialog() {
-    document.getElementById('areYouSure').style.display = "block";
+function areYouSureDeleteDialog() {
+    document.getElementById('areYouSureDelete').style.display = "block";
 }
 
-document.getElementById('cancelButton').addEventListener("click", function() {
-    document.getElementById('areYouSure').style.display = "none";
-});
+function closeDeleteDialog() {
+    document.getElementById('areYouSureDelete').style.display = "none";
+}
 
 function showInviteForm() {
     var x = document.getElementById("invite");
@@ -32,4 +32,12 @@ function copyLink() {
     var copyText = document.getElementById("itemLink");
     copyText.select();
     document.execCommand("copy");
+}
+
+function areYouSureRemoveDialog() {
+    document.getElementById('areYouSureRemove').style.display = "block";
+}
+
+function closeRemoveDialog() {
+    document.getElementById('areYouSureRemove').style.display = "none";
 }

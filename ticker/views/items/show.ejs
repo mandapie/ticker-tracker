@@ -9,21 +9,26 @@
 
     <% if (currentUser.username === item.owner) { %>
         <div class="ui centered grid">
-            <button onclick="showAddAmountForm()">Add Amount</button>
-            <a href="/items/<%= item._id %>/edit"><button>Edit</button></a>
-            <button onclick="showInviteForm()">Invite</button>
+            <button class="ui teal button" onclick="showAddAmountForm()">Add Amount</button>
+            <a class="ui blue button" href="/items/<%= item._id %>/edit">Edit</a>
+            <button class="ui violet button" onclick="showInviteForm()">Invite</button>
         </div>
+        
         <div class="ui centered grid">
-            <div id="addAmount" style="display:none;">
-                <form action="/items/<%= item._id %>/add?_method=PUT" method="POST">
-                    <input type="number" name="total" placeholder="amount">
-                    <button type="submit">Add</button>
+            <div id="addAmount" style="display:none;margin-top:10px">
+                <form class="ui form" action="/items/<%= item._id %>/add?_method=PUT" method="POST">
+                    <div class="two fields">
+                        <input type="number" name="total" placeholder="amount">
+                        <div class="field">
+                            <button class="ui black submit button">Add</button>
+                        </div>
+                    </div>
                 </form>
             </div>
-            <div id="invite" style="display:none;">
-                <div>
+            <div id="invite" style="display:none;margin-top:10px">
+                <div class="ui form">
                     <input style="width:355px" type="text" id="itemLink" value="https://ticker_tracker.com/<%= item._id %>" readonly>
-                    <button type="submit" onclick="copyLink()">Copy</button>
+                    <button class="ui black button" onclick="copyLink()">Copy</button>
                 </div>
             </div>
         </div>
@@ -37,19 +42,31 @@
                 <div class="card">
                     <div class="content">
                         <div class="header">
-                            <%= user.username %>
-                            <% if (currentUser.username == item.owner) { %>
-                            <form action="/items/<%= item._id %>/remove/<%= user._id %>" method="POST">
-                                    <button>Remove</button>
-                                </form>
-                            <% } %>
+                            <div class="ui two column grid">
+                                <div class="row">
+                                    <div class="column"><%= user.username %></div>
+                                    <div class="column">
+                                        <% if (currentUser.username == item.owner && !currentUser._id.equals(user._id)) { %>
+                                            <form class="ui form" action="/items/<%= item._id %>/remove/<%= user._id %>" method="POST">
+                                                <div class="field">
+                                                    <button class="mini ui red button right floated">Remove</button>
+                                                </div>
+                                            </form>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="description">
                             <p>used: <%= user.amount %></p>
                             <% if (currentUser._id.equals(user._id)) { %>
-                                <form action="/items/<%= item._id %>?_method=PUT" method="POST">
-                                    <input type="number" name="amount" placeholder="amount" min="0">
-                                    <button type="submit">Enter</button>
+                                <form class="ui form" action="/items/<%= item._id %>?_method=PUT" method="POST">
+                                    <div class="two fields">
+                                        <input type="number" name="amount" placeholder="amount" min="0">
+                                        <div class="field">
+                                            <button class="ui teal submit button">Enter</button>
+                                        </div>
+                                    </div>
                                 </form>
                             <% } %>
                         </div>

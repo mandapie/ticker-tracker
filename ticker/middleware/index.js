@@ -59,7 +59,7 @@ mw.isParticipant = function (req, res, next) {
             }
             else {
                 for (var i=0; i<itemId.users.length;i++) {
-                    if (itemId.users[i]._id == req.user.id) {
+                    if (itemId.users[i]._id.equals(req.user.id)) {
                         isParticipant = true;
                         break;
                     }

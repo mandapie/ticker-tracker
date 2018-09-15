@@ -5,17 +5,21 @@
         <h1>Add new Item</h1>
         <form class="ui form" action="/items/new" method="POST">
             <div class="field">
-                <input type="text" name="name" placeholder="item name">
+                <input autocomplete="off" type="text" name="name" placeholder="item name">
             </div>
             <div class="field">
-                <input type="number" name="total" placeholder="total amount" min="1">
+                <input autocomplete="off" type="number" name="total" placeholder="total amount" min="1">
             </div>
-            <button class="ui submit button">Add</button>
+            <button class="ui teal submit button">Add</button>
         </form>
-        <form action="/items/join" method="POST">
+        <br/>
+        <form id="joinForm" class="ui form" action="/items/join" method="POST">
             <h1>Join an Item</h1>
-            <input type="text" name="itemLink" placeholder="link of item">
-            <button type="submit">Join</button>
+            <div class="two fields">
+                <input autocomplete="off" type="text" name="itemLink" placeholder="link of item">
+                <span>&nbsp</span>
+                <button class="ui violet button">Join</button>
+            </div>
         </form>
     </div>
 </div>
