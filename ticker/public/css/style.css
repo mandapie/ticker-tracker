@@ -9,3 +9,15 @@
     margin: 10% auto;
     max-width: 300px;
 }
+
+/*form container*/
+.troll {
+    position: relative;
+}
+
+/* edit button*/
+.troll__button {
+    position: absolute;
+    top: 63%;
+    left: 88%;
+}   
